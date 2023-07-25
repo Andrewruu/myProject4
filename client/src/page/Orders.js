@@ -3,13 +3,7 @@ import OrderCard from "../components/OrderCard";
 import { OrderContext } from "../context/OrderContext";
 
 function Orders(){
-    const {orders, setOrders} = useContext(OrderContext)
-    
-    // useEffect(()=>{
-    //     fetch("/orders")
-    //     .then((r)=>r.json())
-    //     .then(setOrders)
-    // },[]);
+    const {orders} = useContext(OrderContext)
 
     console.log(orders)
     const orderList = (orders.length>0? (

@@ -7,10 +7,14 @@ export default function OrderCard({order}){
     const {products} = useContext(ProductContext)
     const product = products.find((product) => product.id == product_id);
 
-    const updatePrice = (
-        product.price.split('.')[1].length == 2?  product.price:  product.price.concat("0")
-    )
+    console.log(product)
+    console.log(product_id)
+    console.log("Q")
+    console.log(quantity)
+    const totalPrice = product.price * quantity
+    const updatePrice = totalPrice.toFixed(2)
 
+    
     return(
         <div className="card">
             
@@ -22,6 +26,7 @@ export default function OrderCard({order}){
             />
             <p>{product.description}</p>
             <p>{quantity}</p>
+            <p>Total Cost: ${updatePrice}</p>
             
         </div>
     )

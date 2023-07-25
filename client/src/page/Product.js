@@ -3,13 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { ProductContext } from "../context/ProductContext";
 
 function Product(){
-    const {products, setProdcuts} = useContext(ProductContext)
-    
-    // useEffect(()=>{
-    //     fetch("/products")
-    //     .then((r)=>r.json())
-    //     .then(setProdcuts)
-    // },[]);
+    const {products} = useContext(ProductContext)
 
     const productList = (products.length>0? (
         <div>{

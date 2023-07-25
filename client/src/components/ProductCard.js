@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 export default function ProductCard({product}){
     const {id, name, image, description, price} = product
     
-    const updatePrice = (
-        price.split('.')[1].length == 2? price: price.concat("0")
-    )
+    const updatePrice = parseFloat(price).toFixed(2)
 
     return(
         <div className="card">
