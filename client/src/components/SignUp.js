@@ -33,7 +33,7 @@ const Signup = ({onLogin}) => {
       body: JSON.stringify({ name, username, password, fund }),
     }).then((r) => {
       if (r.ok) {
-        navigate("/home");
+        navigate("/");
         r.json().then((user) => onLogin(user));
       } else {
         r.json().then((err) => setErrors(err.errors && err.errors[0]));

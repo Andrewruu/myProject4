@@ -9,9 +9,18 @@ class UsersController < ApplicationController
 
     end
 
+    def update
+        user = User.find(params[:id])
+        if user.update(user_params)
+          render json: user, status: :ok
+        else
+          render json: { error: 'Failed to update user fund' }, status: :unprocessable_entity
+        end
+      end
+
     def show
-        current_user = User.find(session[:user_id])
-        render json: current_user
+
+        render json: @current_user
 
     end
 

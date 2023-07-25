@@ -1,7 +1,7 @@
 class CreateProduct < ActiveRecord::Migration[6.1]
   def change
     create_table :products do |t|
-      t.decimal :price, precision: 10, scale: 2
+      t.decimal :price, :precision => 10, :scale => 2
       t.string :name
       t.text :description
       t.string :image

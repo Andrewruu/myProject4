@@ -28,7 +28,7 @@ const Login = ({ onLogin }) => {
       body: JSON.stringify({ username, password }),
     }).then((r) => {
       if (r.ok) {
-        navigate("/home");
+        navigate("/");
         r.json().then((user) => onLogin(user));
       } else {
         r.json().then((err) => setErrors(err.errors));

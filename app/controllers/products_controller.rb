@@ -4,11 +4,6 @@ class ProductsController < ApplicationController
         render json: Product.all
     end
 
-    def create
-        product = @current_user.prodcut.create!(product_params)
-        render json: product, status: :created
-    end
-
     private
 
     def prodcut_params
