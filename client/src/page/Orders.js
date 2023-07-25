@@ -1,10 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import OrderCard from "../components/OrderCard";
 import { OrderContext } from "../context/OrderContext";
 
 function Orders(){
-    const {orders} = useContext(OrderContext)
+    const {orders, setOrders} = useContext(OrderContext)
+    
+    // useEffect(()=>{
+    //     fetch("/orders")
+    //     .then((r)=>r.json())
+    //     .then(setOrders)
+    // },[]);
 
+    console.log(orders)
     const orderList = (orders.length>0? (
         <div>{
             orders.map((order)=> {

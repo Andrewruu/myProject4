@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
 
   def authorize
 
-    @current_user = User.find_by(id: session[:user_id])
+    @current_user = current_user
     return render json: { errors: ["Not authorized"] }, status: :unauthorized unless session.include? :user_id
     
   end
@@ -20,6 +20,6 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 end

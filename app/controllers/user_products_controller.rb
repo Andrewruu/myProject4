@@ -14,7 +14,7 @@ class UserProductsController < ApplicationController
     private
 
     def user_product_params
-        params.permit(:user_id, :product_id, :quantity)
+        params.require(:user_product).permit(:user_id, :product_id, :quantity)
     end
 
 end

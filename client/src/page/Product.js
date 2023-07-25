@@ -1,9 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { ProductContext } from "../context/ProductContext";
 
 function Product(){
-    const {products} = useContext(ProductContext)
+    const {products, setProdcuts} = useContext(ProductContext)
+    
+    // useEffect(()=>{
+    //     fetch("/products")
+    //     .then((r)=>r.json())
+    //     .then(setProdcuts)
+    // },[]);
+
     const productList = (products.length>0? (
         <div>{
             products.map((product)=> {

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import { UserContext } from './context/UserContext';
@@ -7,16 +7,35 @@ import Access from './page/Access';
 import Product from './page/Product';
 import AddOrder from './components/AddOrder';
 import Orders from './page/Orders';
+import { ProductContext } from "./context/ProductContext";
+import { OrderContext } from "./context/OrderContext";
+
 
 function App() {
   const {user, setUser} = useContext(UserContext)
+  const {setProdcuts} = useContext(ProductContext)
+  const {setOrders} = useContext(OrderContext)
   console.log(user)
+
+
+  useEffect(()=>{
+    fetch("/products")
+    .then((r)=>r.json())
+    .then(setProdcuts)
+  },[user]);
+
+  useEffect(()=>{
+    fetch("/orders")
+    .then((r)=>r.json())
+    .then(setOrders)
+  },[user]);
 
   if (!user){
     return <Access/>
   }
 
   return (
+
     <div className="App">
       <NavBar user={user} setUser={setUser} />
       <Routes>

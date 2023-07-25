@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: :create
     
     def create
 
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
     def update
         user = User.find(params[:id])
-        if user.update(user_params)
+        if user.update(user_params_update)
           render json: user, status: :ok
         else
           render json: { error: 'Failed to update user fund' }, status: :unprocessable_entity
@@ -19,8 +19,8 @@ class UsersController < ApplicationController
       end
 
     def show
-
-        render json: @current_user
+        current_user = User.find(session[:user_id])
+        render json: current_user
 
     end
 
@@ -31,5 +31,8 @@ class UsersController < ApplicationController
         params.permit(:name, :username, :password, :fund)
     end
 
+    def user_params_update
+        params.require(:user).permit(:name, :username, :password, :fund)
+    end
 
 end

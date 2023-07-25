@@ -3,13 +3,14 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ProductContext } from "../context/ProductContext";
 import { OrderContext } from "../context/OrderContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddOrder(){
     const {user} = useContext(UserContext)
     const {products} = useContext(ProductContext)
     const {orders, setOrders} = useContext(OrderContext)
     const {id} = useParams()
+    const navs = useNavigate()
 
     const [orderObj, setOrderObj]= useState({
         user_id: user.id,
@@ -29,6 +30,29 @@ export default function AddOrder(){
         setTotalCost(newTotalCost);
     }
 
+    function updateFund(){
+      const updatedUser = {
+        name: user.name,
+        username: user.username,
+        fund: user.fund - totalCost 
+      };
+
+      fetch(`/users/${user.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedUser),
+        })
+        .then((r) => {
+          if (!r.ok) {
+            throw new Error("Failed to update user fund.");
+          }
+        })
+        .catch((error) => {
+          console.error('Error updating user fund:', error);
+        });
+    }
     function handelSubmit(e){
         e.preventDefault()
         if (totalCost > user.fund)
@@ -36,25 +60,7 @@ export default function AddOrder(){
             alert("Insufficient Funds Cannot Place order.")
             return;
         }
-        const updatedUser = { ...user, fund: user.fund - totalCost };
-
-        fetch(`/users/${user.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedUser),
-          })
-          .then((r) => {
-            if (!r.ok) {
-              throw new Error("Failed to update user fund.");
-            }
-          })
-          .catch((error) => {
-            console.error('Error updating user fund:', error);
-          });
-
-
+        
         const newOrder ={
             user_id: orderObj.user_id,
             product_id: orderObj.product_id,
@@ -73,7 +79,9 @@ export default function AddOrder(){
             .then((r)=>r.json())
             .then((data)=>{
                 setOrders([...orders, data])
+                updateFund()
                 console.log(orders)
+                navs("/my-orders")
             })
     }
 
