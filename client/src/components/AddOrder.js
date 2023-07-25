@@ -6,12 +6,12 @@ import { OrderContext } from "../context/OrderContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddOrder(){
-    const {user} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
     const {products} = useContext(ProductContext)
     const {orders, setOrders} = useContext(OrderContext)
     const {id} = useParams()
     const navs = useNavigate()
-
+    const numFund = parseFloat(user.fund)
     const [orderObj, setOrderObj]= useState({
         user_id: user.id,
         product_id: id,
@@ -19,22 +19,21 @@ export default function AddOrder(){
     })
     const product = products.find((product) => product.id === parseInt(id));
     
-    const [totalCost, setTotalCost] = useState(parseInt(product.price));
+    const [totalCost, setTotalCost] = useState(parseFloat(product.price).toFixed(2));
   
     function handleChange(e) {
         setOrderObj({
           ...orderObj,
           [e.target.name]: e.target.value,
         })
-        const newTotalCost = product.price * parseInt(e.target.value);
+        const newTotalCost = parseFloat(product.price * parseInt(e.target.value));
         setTotalCost(newTotalCost);
     }
 
     function updateFund(){
+      const newFund = numFund - totalCost
       const updatedUser = {
-        name: user.name,
-        username: user.username,
-        fund: user.fund - totalCost 
+        fund: newFund
       };
 
       fetch(`/users/${user.id}`, {
@@ -48,6 +47,12 @@ export default function AddOrder(){
           if (!r.ok) {
             throw new Error("Failed to update user fund.");
           }
+          return r.json()
+        })
+        .then((data)=>
+        {
+          setUser(data)
+          console.log(data)
         })
         .catch((error) => {
           console.error('Error updating user fund:', error);
@@ -55,7 +60,7 @@ export default function AddOrder(){
     }
     function handelSubmit(e){
         e.preventDefault()
-        if (totalCost > user.fund)
+        if (totalCost > numFund)
         {
             alert("Insufficient Funds Cannot Place order.")
             return;
@@ -80,7 +85,6 @@ export default function AddOrder(){
             .then((data)=>{
                 setOrders([...orders, data])
                 updateFund()
-                console.log(orders)
                 navs("/my-orders")
             })
     }

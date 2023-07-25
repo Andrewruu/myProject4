@@ -5,7 +5,6 @@ import { OrderContext } from "../context/OrderContext";
 function Orders(){
     const {orders} = useContext(OrderContext)
 
-    console.log(orders)
     const orderList = (orders.length>0? (
         <div>{
             orders.map((order)=> {

@@ -12,10 +12,9 @@ import { OrderContext } from "./context/OrderContext";
 
 
 function App() {
-  const {user, setUser} = useContext(UserContext)
+  const {user} = useContext(UserContext)
   const {setProdcuts} = useContext(ProductContext)
   const {setOrders} = useContext(OrderContext)
-  console.log(user)
 
 
   useEffect(()=>{
@@ -37,7 +36,7 @@ function App() {
   return (
 
     <div className="App">
-      <NavBar user={user} setUser={setUser} />
+      <NavBar/>
       <Routes>
           <Route 
               path="/" 
