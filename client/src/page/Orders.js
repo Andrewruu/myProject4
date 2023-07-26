@@ -5,10 +5,14 @@ import { OrderContext } from "../context/OrderContext";
 function Orders(){
     const {orders} = useContext(OrderContext)
 
+    function handleRefund(){
+
+    }
+
     const orderList = (orders.length>0? (
         <div>{
             orders.map((order)=> {
-                return <OrderCard key={order.id} order={order}/>
+                return <OrderCard key={order.id} order={order} handleRefund={handleRefund}/>
             })
             }
         </div>

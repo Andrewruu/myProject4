@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   post "/new-order", to: "user_products#create"
   get "/orders", to: "user_products#index"
+  delete "/order-refund/:id", to: "user_products#destroy"
 end

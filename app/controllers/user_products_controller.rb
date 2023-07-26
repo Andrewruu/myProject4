@@ -11,6 +11,21 @@ class UserProductsController < ApplicationController
         render json: user_product, status: :created
     end
 
+    def destroy
+    
+        user_product = UserProduct.find_by(id: params[:id])
+        
+        if user_product.nil?
+            render json: {error: "Order Not found"}, status: :not_found
+        elsif
+            user_product.user != @current_user
+            render json: {error: "Not Authorized to refund this Order!"}, status: :forbidden
+        else
+            user_product.destroy
+            render json: {message: "User product refunded"}, status: :ok
+        end
+
+    end
     private
 
     def user_product_params

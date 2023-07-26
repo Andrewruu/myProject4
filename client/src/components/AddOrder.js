@@ -6,7 +6,7 @@ import { OrderContext } from "../context/OrderContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddOrder(){
-    const {user, setUser} = useContext(UserContext)
+    const {user, updateUser} = useContext(UserContext)
     const {products} = useContext(ProductContext)
     const {orders, setOrders} = useContext(OrderContext)
     const {id} = useParams()
@@ -35,28 +35,7 @@ export default function AddOrder(){
       const updatedUser = {
         fund: newFund
       };
-
-      fetch(`/users/${user.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
-        })
-        .then((r) => {
-          if (!r.ok) {
-            throw new Error("Failed to update user fund.");
-          }
-          return r.json()
-        })
-        .then((data)=>
-        {
-          setUser(data)
-          console.log(data)
-        })
-        .catch((error) => {
-          console.error('Error updating user fund:', error);
-        });
+      updateUser(updatedUser)
     }
     function handelSubmit(e){
         e.preventDefault()

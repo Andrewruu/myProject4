@@ -16,8 +16,31 @@ function UserProvider({ children }) {
     });
   }, []);
 
+  const updateUser = (updatedUserData) => {
 
-  return <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>;
+    fetch(`/users/${user.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedUserData),
+    })
+    .then((r) => {
+      if (!r.ok) {
+        throw new Error("Failed to update user fund.");
+      }
+      return r.json()
+    })
+    .then((data)=>
+    {
+      setUser(data)
+    })
+    .catch((error) => {
+      console.error('Error updating user fund:', error);
+    });
+  };
+
+  return <UserContext.Provider value={{user, setUser, updateUser}}>{children}</UserContext.Provider>;
 }
 
 export { UserContext, UserProvider };
