@@ -9,6 +9,7 @@ import AddOrder from './components/AddOrder';
 import Orders from './page/Orders';
 import { ProductContext } from "./context/ProductContext";
 import { OrderContext } from "./context/OrderContext";
+import EditOrder from './components/EditOrder';
 
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
           <Route
               path='/my-orders'
               element={<Orders/>}/>
+          <Route 
+              path='/edit-order/:id'
+              element={<EditOrder/>}/>
       </Routes>
     </div>
   );

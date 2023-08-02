@@ -11,10 +11,29 @@ class UserProductsController < ApplicationController
         render json: user_product, status: :created
     end
 
+
+    def update
+    
+        user_product = @current_user.user_products.find_by(id: params[:id])
+        if user_product.nil?
+            render json: {error: "Order Not Found"}, status: :not_found
+        elsif user_product.user != @current_user
+            render json: {error: "Not Authorized to edit this Order!"}, status: :forbidden
+        else
+            if user_product.update(user_product_params)
+                render json: user_product, status: :ok
+            else
+                render json: {errors: user_product.errors.full_messages}, status: :unprocessable_entity
+                
+            end
+        end
+    
+    end
+
     def destroy
     
-        user_product = UserProduct.find_by(id: params[:id])
-        # use @current_user
+        user_product = @current_user.user_products.find_by(id: params[:id])
+        
         if user_product.nil?
             render json: {error: "Order Not found"}, status: :not_found
         elsif

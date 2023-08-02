@@ -47,7 +47,7 @@ const Signup = ({onLogin}) => {
       <form className="login-box" onSubmit={handleSubmit}>
         <h1>Register</h1>
         {errors.map((err) => (
-              <p>{err}</p>
+              <p key={err}>{err}</p>
             ))}
         <input type="text" placeholder="Name" onChange={handleNameChange}/>
         <input type="text" placeholder="Username" onChange={handleUsernameChange}/>

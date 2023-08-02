@@ -5,93 +5,99 @@ import { ProductContext } from "../context/ProductContext";
 import { OrderContext } from "../context/OrderContext";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function AddOrder(){
+export default function EditOrder(){
+    const [errors, setErrors] = useState([]);
     const {user, updateUser} = useContext(UserContext)
     const {products} = useContext(ProductContext)
     const {orders, setOrders} = useContext(OrderContext)
     const {id} = useParams()
     const navs = useNavigate()
     const numFund = parseFloat(user.fund)
+    const current_order = orders.find((order)=> order.id === parseInt(id))
     const [orderObj, setOrderObj]= useState({
-        product_id: id,
-        quantity: 1
+        product_id: current_order.product_id,
+        quantity: parseInt(current_order.quantity)
     })
-    const product = products.find((product) => product.id === parseInt(id));
+    const product = products.find((product) => product.id === parseInt(current_order.product_id));
     
-    const [totalCost, setTotalCost] = useState(parseFloat(product.price).toFixed(2));
-  
+    const [totalCost, setTotalCost] = useState(parseFloat(product.price*orderObj.quantity).toFixed(2));
+    const [updatedCost, setUpdatedCost] = useState(0)
+    const originalCost = parseFloat(product.price*current_order.quantity).toFixed(2)
     function handleChange(e) {
         setOrderObj({
           ...orderObj,
           [e.target.name]: e.target.value,
         })
         const newTotalCost = parseFloat(product.price * parseInt(e.target.value));
+        setUpdatedCost(parseFloat(newTotalCost-originalCost))
         setTotalCost(newTotalCost);
+        console.log(orderObj.quantity)
     }
 
     function updateFund(){
-      const newFund = numFund - totalCost
+      const newFund = numFund - updatedCost
       const updatedUser = {
         fund: newFund
       };
       updateUser(updatedUser)
     }
+
+    
     function handelSubmit(e){
         e.preventDefault()
-        if (totalCost > numFund)
+        if (updatedCost > numFund)
         {
             alert("Insufficient Funds Cannot Place order.")
             return;
         }
         
-        const newOrder ={
+        const editOrder ={
             product_id: orderObj.product_id,
             quantity: parseInt(orderObj.quantity)
         }
         
-        fetch("/new-order",{
-            method: "POST",
+        fetch(`/edit-order/${id}`,{
+            method: "PATCH",
             headers: {
-                "Content-Type": "application/json"
-
+                "Content-Type": "application/json",
+                "Accept": "application/json",
             },
-            body: JSON.stringify(newOrder),
+            body: JSON.stringify(editOrder),
 
         })
-            .then((r)=>r.json())
-            .then((data)=>{
+
+        .then((r) => {
+            if (r.ok) {
+              r.json().then((data) =>{
                 setOrders([...orders, data])
                 updateFund()
                 navs("/my-orders")
+              })
+            } else {
+              r.json().then((err) => setErrors(err.errors));
+            }
             })
     }
-
     return (
-    <div className="add-product-form">
-            <h1>Add Order</h1>
+    <div className="edit-product-form">
+            <form onSubmit={handelSubmit}>
+            <h1>Edit Order</h1>
             <img
             src={product.image}
             alt={product.name}
             className="product-avatar"
             />
             <p>{product.name}</p>
+            {errors.map((err) => (
+              <p key={err}>{err}</p>
+            ))}
             <label>Quantity</label>
-            <select name="quantity" onChange={handleChange}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
+            <input type="number" name="quantity" value={`${orderObj.quantity}`} onChange={handleChange}/>
+
             <p>Total Cost: ${totalCost}</p>
-            <form onSubmit={handelSubmit}>
             <br/>
-            <button type="submit">Buy</button>
+            <button type="submit">submit</button>
+
 
             </form>
         </div>
