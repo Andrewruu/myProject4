@@ -7,7 +7,7 @@ const Signup = ({onLogin}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fund, setFund] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate()
 
   function handleNameChange(e){
@@ -36,7 +36,7 @@ const Signup = ({onLogin}) => {
         navigate("/");
         r.json().then((user) => onLogin(user));
       } else {
-        r.json().then((err) => setErrors(err.errors && err.errors[0]));
+        r.json().then((err) => setErrors(err.errors));
       }
     });
   }
@@ -46,11 +46,13 @@ const Signup = ({onLogin}) => {
     <div className="Signup Login">
       <form className="login-box" onSubmit={handleSubmit}>
         <h1>Register</h1>
-        {errors && <p>{errors}</p>}
+        {errors.map((err) => (
+              <p>{err}</p>
+            ))}
         <input type="text" placeholder="Name" onChange={handleNameChange}/>
         <input type="text" placeholder="Username" onChange={handleUsernameChange}/>
         <input type="password" placeholder="Password" onChange={handlePasswordChange}/>
-        <input type="number" placeholder="Fund" onChange={handleFundChange}/>
+        <input type="number" step={"0.01"} placeholder="Fund" onChange={handleFundChange}/>
         <button>Signup</button>
       </form>
     </div>

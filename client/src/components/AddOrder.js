@@ -13,10 +13,10 @@ export default function AddOrder(){
     const navs = useNavigate()
     const numFund = parseFloat(user.fund)
     const [orderObj, setOrderObj]= useState({
-        user_id: user.id,
         product_id: id,
         quantity: 1
     })
+    console.log(orders)
     const product = products.find((product) => product.id === parseInt(id));
     
     const [totalCost, setTotalCost] = useState(parseFloat(product.price).toFixed(2));
@@ -46,7 +46,6 @@ export default function AddOrder(){
         }
         
         const newOrder ={
-            user_id: orderObj.user_id,
             product_id: orderObj.product_id,
             quantity: parseInt(orderObj.quantity)
         }

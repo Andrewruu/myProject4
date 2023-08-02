@@ -14,7 +14,7 @@ class UserProductsController < ApplicationController
     def destroy
     
         user_product = UserProduct.find_by(id: params[:id])
-        
+        # use @current_user
         if user_product.nil?
             render json: {error: "Order Not found"}, status: :not_found
         elsif
