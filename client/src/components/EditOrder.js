@@ -43,7 +43,7 @@ export default function EditOrder(){
     }
 
     
-    function handelSubmit(e){
+    function handleSubmit(e){
         e.preventDefault()
         if (updatedCost > numFund)
         {
@@ -78,9 +78,14 @@ export default function EditOrder(){
             }
             })
     }
+
+    function handleCancel(){
+        navs("/my-orders")
+    }
+
     return (
     <div className="edit-product-form">
-            <form onSubmit={handelSubmit}>
+            <form onSubmit={handleSubmit}>
             <h1>Edit Order</h1>
             <img
             src={product.image}
@@ -96,8 +101,8 @@ export default function EditOrder(){
 
             <p>Total Cost: ${totalCost}</p>
             <br/>
-            <button type="submit">submit</button>
-
+            <button type="submit">Update</button>
+            <button onClick={handleCancel}>cancel</button>
 
             </form>
         </div>

@@ -3,10 +3,10 @@ import OrderCard from "../components/OrderCard";
 import { OrderContext } from "../context/OrderContext";
 
 function Orders(){
-    const {orders} = useContext(OrderContext)
+    const {orders, setOrders} = useContext(OrderContext)
 
-    function handleRefund(){
-
+    function handleRefund(order){
+        setOrders(orders.filter(o => o.id !== order.id))
     }
 
     const orderList = (orders.length>0? (

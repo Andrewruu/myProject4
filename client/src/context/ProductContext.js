@@ -5,10 +5,19 @@ const ProductContext = React.createContext();
 
 // create a provider component
 function ProductProvider({ children }) {
-    const [products, setProdcuts] = useState([])
-    
+    const [products, setProducts] = useState([])
+    const [userOrders, setUserOrders] = useState([])
 
-  return <ProductContext.Provider value={{products, setProdcuts}}>{children}</ProductContext.Provider>;
+    function getOrders(id)
+    {
+      fetch(`/product-orders/${id}`)
+      .then((r) => {
+        if (r.ok)
+          r.json().then((data)=> setUserOrders(data))
+      })
+    }
+
+  return <ProductContext.Provider value={{products, setProducts, getOrders, userOrders}}>{children}</ProductContext.Provider>;
 }
 
 export { ProductContext, ProductProvider };

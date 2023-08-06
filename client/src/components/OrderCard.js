@@ -54,7 +54,7 @@ export default function OrderCard({order, handleRefund}){
             <p>Quantity: {quantity}</p>
             <p>Total Cost: ${updatePrice}</p>
             <Link to={`/edit-order/${order.id}`} ><button >Edit Order</button></Link>
-            <button onClick={removeOrder}>Refund</button>
+            <button className={'refund'} onClick={removeOrder}>Refund</button>
         </div>
     )
 }

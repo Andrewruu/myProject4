@@ -10,18 +10,19 @@ import Orders from './page/Orders';
 import { ProductContext } from "./context/ProductContext";
 import { OrderContext } from "./context/OrderContext";
 import EditOrder from './components/EditOrder';
-
+import AddProduct from './components/AddProduct';
+import UserOrders from './page/UserOrders';
 
 function App() {
   const {user} = useContext(UserContext)
-  const {setProdcuts} = useContext(ProductContext)
+  const {setProducts} = useContext(ProductContext)
   const {setOrders} = useContext(OrderContext)
 
 
   useEffect(()=>{
     fetch("/products")
     .then((r)=>r.json())
-    .then(setProdcuts)
+    .then(setProducts)
   },[user]);
 
   useEffect(()=>{
@@ -51,6 +52,12 @@ function App() {
           <Route 
               path='/edit-order/:id'
               element={<EditOrder/>}/>
+          <Route 
+              path='/add-product'
+              element={<AddProduct/>}/>
+          <Route 
+              path='/product-orders/:id'
+              element={<UserOrders/>}/>
       </Routes>
     </div>
   );

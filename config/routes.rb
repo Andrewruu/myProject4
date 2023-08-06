@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  post "/add-product", to: "products#create"
+  delete "/remove-product/:id", to: "products#destroy"
+  get "/product-orders/:id", to: "products#users_orders"
+
+
   post "/new-order", to: "user_products#create"
   get "/orders", to: "user_products#index"
   delete "/order-refund/:id", to: "user_products#destroy"

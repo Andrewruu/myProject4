@@ -16,8 +16,8 @@ code {
   text-align: center;
   border: grey solid 1px;
   padding: 1rem;
-  width: 17rem;
-  height: 25rem;
+  width: 19rem;
+  height: 30rem;
   display: inline-grid;
   margin: 1rem 1rem;
   box-shadow: 3px 4px #292727
@@ -37,10 +37,13 @@ code {
 }
 .card button{
   height: 2rem;
+  width: max-content;
+  margin: auto;
+  margin-top: 1px;
 }
 
 .product-avatar {
   justify-self: center;
-  height: 12rem;
+  height: 10rem;
   width: auto;
 }

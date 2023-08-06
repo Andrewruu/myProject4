@@ -36,7 +36,7 @@ export default function AddOrder(){
       };
       updateUser(updatedUser)
     }
-    function handelSubmit(e){
+    function handleSubmit(e){
         e.preventDefault()
         if (totalCost > numFund)
         {
@@ -89,7 +89,7 @@ export default function AddOrder(){
                 <option value="10">10</option>
             </select>
             <p>Total Cost: ${totalCost}</p>
-            <form onSubmit={handelSubmit}>
+            <form onSubmit={handleSubmit}>
             <br/>
             <button type="submit">Buy</button>
 

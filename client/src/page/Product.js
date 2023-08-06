@@ -3,12 +3,16 @@ import ProductCard from "../components/ProductCard";
 import { ProductContext } from "../context/ProductContext";
 
 function Product(){
-    const {products} = useContext(ProductContext)
+    const {products, setProducts} = useContext(ProductContext)
+
+    function handleRemoveProduct(product){
+        setProducts(products.filter(p => p.id !== product.id))
+    }
 
     const productList = (products.length>0? (
         <div>{
             products.map((product)=> {
-                return <ProductCard key={product.id} product={product}/>
+                return <ProductCard key={product.id} product={product} handleRemove={handleRemoveProduct}/>
             })
             }
         </div>
