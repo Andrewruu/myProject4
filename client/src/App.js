@@ -12,6 +12,7 @@ import { OrderContext } from "./context/OrderContext";
 import EditOrder from './components/EditOrder';
 import AddProduct from './components/AddProduct';
 import UserOrders from './page/UserOrders';
+import EditProduct from './components/EditProduct';
 
 function App() {
   const {user} = useContext(UserContext)
@@ -23,13 +24,13 @@ function App() {
     fetch("/products")
     .then((r)=>r.json())
     .then(setProducts)
-  },[user]);
+  },[]);
 
   useEffect(()=>{
     fetch("/orders")
     .then((r)=>r.json())
     .then(setOrders)
-  },[user]);
+  },[]);
 
   if (!user){
     return <Access/>
@@ -55,6 +56,9 @@ function App() {
           <Route 
               path='/add-product'
               element={<AddProduct/>}/>
+              <Route 
+              path='/edit-product/:id'
+              element={<EditProduct/>}/>
           <Route 
               path='/product-orders/:id'
               element={<UserOrders/>}/>

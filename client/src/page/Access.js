@@ -8,7 +8,7 @@ function Access() {
   const [showLogin, setShowLogin] = useState(true);
   const {setUser} = useContext(UserContext)
   return (
-    <div>
+    <div className="login-signup-card">
       
       {showLogin ? (
         <>

@@ -36,15 +36,15 @@ const Login = ({ onLogin }) => {
     });
   }
   return (
-    <div className="Login">
+    <div>
       
-        
-      
-        <form onSubmit={handleSubmit} className="login-box">
+        <form onSubmit={handleSubmit} className="login-singup">
         <h1>Welcome!</h1>
-        {errors && <p>{errors}</p>}
+        <h2>Login to UShop</h2>
           <input type="text" onChange={handleUsernameChange} placeholder="Username" />
           <input type="password" onChange={handlePasswordChange} placeholder="Password"/>
+          {errors && <p className="errors">{errors}</p>}
+          <br></br>
           <button>Login</button>
         </form>
     

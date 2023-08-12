@@ -43,16 +43,18 @@ const Signup = ({onLogin}) => {
  
 
   return (
-    <div className="Signup Login">
-      <form className="login-box" onSubmit={handleSubmit}>
+    <div>
+      <form className="login-singup" onSubmit={handleSubmit}>
         <h1>Register</h1>
-        {errors.map((err) => (
-              <p key={err}>{err}</p>
-            ))}
+
         <input type="text" placeholder="Name" onChange={handleNameChange}/>
         <input type="text" placeholder="Username" onChange={handleUsernameChange}/>
         <input type="password" placeholder="Password" onChange={handlePasswordChange}/>
         <input type="number" step={"0.01"} placeholder="Fund" onChange={handleFundChange}/>
+        {errors.map((err) => (
+              <p className="errors" key={err}>{err}</p>
+            ))}
+        <br></br>
         <button>Signup</button>
       </form>
     </div>

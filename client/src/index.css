@@ -5,6 +5,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: white;
+}
+
+.content-container {
+  background-color: transparent;
 }
 
 code {
@@ -13,6 +22,7 @@ code {
 }
 
 .card {
+  background-color: rgb(231, 230, 230);
   text-align: center;
   border: grey solid 1px;
   padding: 1rem;
@@ -46,4 +56,107 @@ code {
   justify-self: center;
   height: 10rem;
   width: auto;
+}
+
+.login-signup-card {
+  background-color: rgb(168, 168, 168);
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 19rem;
+  height: 30rem;
+  display: inline-grid;
+  margin: 1rem 1rem;
+} 
+
+.login-singup h1 {
+  margin-bottom: 10px;
+}
+
+.login-singup input {
+  margin: 3px;
+}
+
+.login-singup .errors {
+  color: red;
+}
+
+.login-singup button {
+  grid-column: span 2; 
+  align-self: flex-start;
+}
+
+nav {
+  background-color: #a3a3a3;
+  width: 100vw;
+}
+
+nav h1 {
+  margin: .9rem 2rem;
+  position: absolute; 
+  left: 2%; 
+}
+
+nav h2 {
+  margin: .9rem 2rem;
+  color: green;
+  position: absolute; 
+  right: 8%; 
+  
+}
+
+nav a {
+  display: inline-block;
+  margin: .9rem 2rem;
+  text-decoration: none;
+  font-size: 1.5em;
+  color: white;
+  border-bottom: 2px solid white;
+  transition: 0.1s;
+  
+}
+nav a:hover{
+  color: rgb(7, 247, 7);
+  border-bottom: 2px solid rgb(7, 247, 7);
+}
+nav a.active {
+  color: rgb(7, 247, 7);
+  border-bottom: 2px solid rgb(7, 247, 7);
+}
+
+nav button {
+  margin: .9rem 2rem;
+  border: none;
+  border-radius: 5px;
+  height: 2rem;
+  width: max-content;
+  color: black;
+  font-size: 18px;
+  position: absolute; 
+  right: 2%; 
+}
+
+nav button:hover {
+  color: #333;
+}
+
+.add-product-form{
+  background-color: white;
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 19rem;
+  height: 30rem;
+  display: inline-grid;
+  margin: 1rem 1rem;
+}
+.edit-product-form{
+  background-color: white;
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 19rem;
+  height: 30rem;
+  display: inline-grid;
+  margin: 1rem 1rem;
 }

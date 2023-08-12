@@ -43,7 +43,9 @@ const AddProduct = () => {
       }
     });
   }
- 
+  function handleCancel(){
+    navigate("/")
+  }
 
   return (
     <div className="AddProduct">
@@ -57,6 +59,7 @@ const AddProduct = () => {
         <input type="text" placeholder="Image" onChange={handleImageChange}/>
         <textarea form="AddProduct" placeholder="Description min 15 char" onChange={handleDescriptionChange}/>
         <button>Add Product</button>
+        <button onClick={handleCancel}>cancel</button>
       </form>
     </div>
   );

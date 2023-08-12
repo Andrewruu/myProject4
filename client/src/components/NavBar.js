@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 function NavBar() {
@@ -22,9 +22,13 @@ function NavBar() {
   return (
     <nav>
       <h1>UShop</h1>
-      <h2>Fund ${updateFund}</h2>
-      <Link to={`/`}>Products</Link>
-      <Link to={'/my-orders'}>My Orders</Link>
+      <h2>Fund: ${updateFund}</h2>
+      <NavLink to={`/`} activeClassName="active">
+        Products
+      </NavLink>
+      <NavLink to={`/my-orders`} activeClassName="active">
+        My Orders
+      </NavLink>
         <button variant="outline" onClick={handleLogoutClick}>Logout </button>
     </nav>
   );

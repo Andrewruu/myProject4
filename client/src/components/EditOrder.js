@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ProductContext } from "../context/ProductContext";
@@ -14,15 +14,29 @@ export default function EditOrder(){
     const navs = useNavigate()
     const numFund = parseFloat(user.fund)
     const current_order = orders.find((order)=> order.id === parseInt(id))
-    const [orderObj, setOrderObj]= useState({
-        product_id: current_order.product_id,
-        quantity: parseInt(current_order.quantity)
-    })
+    const [orderObj, setOrderObj] = useState({
+      product_id: 0, 
+      quantity: 0,   
+    });
+    useEffect(() => {
+      if (current_order) {
+        setOrderObj({
+          product_id: current_order.product_id,
+          quantity: parseInt(current_order.quantity),
+        });
+      }
+    }, [current_order]);
+  
     const product = products.find((product) => product.id === parseInt(current_order.product_id));
     
     const [totalCost, setTotalCost] = useState(parseFloat(product.price*orderObj.quantity).toFixed(2));
     const [updatedCost, setUpdatedCost] = useState(0)
     const originalCost = parseFloat(product.price*current_order.quantity).toFixed(2)
+    
+    function handleEdit(editOrder){
+      setOrders(orders.map(order=>(order.id === editOrder.id? editOrder: order)))
+    }
+    
     function handleChange(e) {
         setOrderObj({
           ...orderObj,
@@ -69,7 +83,7 @@ export default function EditOrder(){
         .then((r) => {
             if (r.ok) {
               r.json().then((data) =>{
-                setOrders([...orders, data])
+                handleEdit(data)
                 updateFund()
                 navs("/my-orders")
               })
