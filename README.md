@@ -6,6 +6,7 @@ User_products are the orders that Users will make on Products
 Users --< User_products >-- Products
 So users will have many user_products and have many products through user_products
 Products will have many user_products and have many users through user_products
+This project also shows authorization and authentication in action allowing users to Login and save a sesssion using cookies.
 
 ## Setup
 
