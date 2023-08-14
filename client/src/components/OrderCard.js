@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext";
 export default function OrderCard({order, handleRefund}){
     const {product_id, quantity} = order
     const {user, updateUser} = useContext(UserContext)
-    const {products} = useContext(ProductContext)
+    const {products, setProducts} = useContext(ProductContext)
     const product = products.find((product) => product.id == product_id);
 
     const totalPrice = product.price * quantity
@@ -23,6 +23,41 @@ export default function OrderCard({order, handleRefund}){
         updateUser(updatedUser)
     }
 
+    function userOrderUpdate() {
+      const newFund = numFund + updatePrice;
+      const currentUser = product.product_with_users.filter((u) => u.user_id == user.id);
+      const totalQuantity = parseInt(currentUser[0].total_quantity);
+      const updatedProducts = products.map((product) => {
+        if (product.id === order.product_id) {
+          const updatedTotalQuantity = totalQuantity - quantity;
+          if (updatedTotalQuantity <= 0) {
+            return {
+              ...product,
+              product_with_users: product.product_with_users.filter((u) => u.user_id !== user.id)
+            };
+          } else {
+            return {
+              ...product,
+              product_with_users: product.product_with_users.map((u) => {
+                if (u.user_id === user.id) {
+                  return {
+                    ...u,
+                    user_fund: newFund,
+                    total_quantity: updatedTotalQuantity,
+                  };
+                } else {
+                  return u;
+                }
+              })
+            };
+          }
+        } else {
+          return product;
+        }
+      });
+    
+      setProducts(updatedProducts);
+    }
 
 
     function removeOrder(){
@@ -38,6 +73,7 @@ export default function OrderCard({order, handleRefund}){
         .then(()=>{
             handleRefund(order)
             updateFund()
+            userOrderUpdate()
         })
   
     }

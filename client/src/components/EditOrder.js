@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function EditOrder(){
     const [errors, setErrors] = useState([]);
     const {user, updateUser, setUser} = useContext(UserContext)
-    const {products} = useContext(ProductContext)
+    const {products, setProducts} = useContext(ProductContext)
     const orders = user.user_with_orders
 
     const {id} = useParams()
@@ -28,7 +28,7 @@ export default function EditOrder(){
     }, [current_order]);
   
     const product = products.find((product) => product.id === parseInt(current_order.product_id));
-    
+
     const [totalCost, setTotalCost] = useState(parseFloat(product.price*orderObj.quantity).toFixed(2));
     const [updatedCost, setUpdatedCost] = useState(0)
     const originalCost = parseFloat(product.price*current_order.quantity).toFixed(2)
@@ -56,6 +56,36 @@ export default function EditOrder(){
         fund: newFund
       };
       updateUser(updatedUser)
+    }
+    
+    function userOrderUpdate(){
+      const newFund = numFund - updatedCost
+      const currentUser = product.product_with_users.filter((u)=> u.user_id == user.id)
+      const quantityChange = current_order.quantity - orderObj.quantity
+      const totalQuantity = parseInt(currentUser[0].total_quantity)
+      const updatedProducts = products.map((product) => {
+        if (product.id === orderObj.product_id) {
+          const updatedTotalQuantity = totalQuantity - quantityChange;
+          return {
+            ...product,
+            product_with_users: product.product_with_users.map((u) => {
+              if (u.user_id === user.id) {
+                return {
+                  ...u,
+                  user_fund: newFund,
+                  total_quantity: updatedTotalQuantity,
+                };
+              } else {
+                return u;
+              }
+            })
+          };
+        } else {
+          return product;
+        }
+      });
+
+      setProducts(updatedProducts)
     }
 
     
@@ -87,6 +117,7 @@ export default function EditOrder(){
               r.json().then((data) =>{
                 handleEdit(data)
                 updateFund()
+                userOrderUpdate()
                 navs("/my-orders")
               })
             } else {
@@ -96,6 +127,7 @@ export default function EditOrder(){
             }
             })
     }
+
 
     function handleCancel(){
         navs("/my-orders")

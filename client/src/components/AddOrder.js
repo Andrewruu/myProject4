@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddOrder(){
     const {user, updateUser, setUser} = useContext(UserContext)
-    const {products} = useContext(ProductContext)
+    const {products, setProducts} = useContext(ProductContext)
     const orders = user.user_with_orders
     const {id} = useParams()
     const navs = useNavigate()
@@ -27,6 +27,53 @@ export default function AddOrder(){
         const newTotalCost = parseFloat(product.price * parseInt(e.target.value));
         setTotalCost(newTotalCost);
     }
+
+    function userOrderUpdate(){
+        const newFund = numFund - totalCost;
+        const currentUser = product.product_with_users.find((u) => u.user_id === user.id);
+        console.log(currentUser)
+        const updatedProducts = products.map((product) => {
+          if (product.id == orderObj.product_id) {
+            if (currentUser) {
+              console.log(currentUser)
+              const totalQuantity = parseInt(currentUser.total_quantity);
+              const updatedTotalQuantity = totalQuantity + orderObj.quantity;
+              return {
+                ...product,
+                product_with_users: product.product_with_users.map((u) => {
+                  if (u.user_id === user.id) {
+                    return {
+                      ...u,
+                      user_fund: newFund,
+                      total_quantity: updatedTotalQuantity,
+                    };
+                  } else {
+                    return u;
+                  }
+                }),
+              };
+            } else {
+              return {
+                ...product,
+                product_with_users: [
+                  ...product.product_with_users,
+                  {
+                    user_id: user.id,
+                    user_name: user.name,
+                    user_fund: newFund,
+                    total_quantity: orderObj.quantity,
+                  },
+                ],
+              };
+            }
+          } else {
+            return product;
+          }
+        });
+      
+        console.log(updatedProducts)
+        setProducts(updatedProducts);
+      }
 
     function updateFund(){
       const newFund = numFund - totalCost
@@ -66,6 +113,7 @@ export default function AddOrder(){
             .then((data)=>{
                 handleAddOrder(data)
                 updateFund()
+                userOrderUpdate()
                 navs("/my-orders")
             })
     }
