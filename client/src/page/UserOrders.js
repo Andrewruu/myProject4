@@ -15,7 +15,7 @@ function UserOrders(){
     const userOrdersList = (userOrders.length>0? (
         <div>{
             userOrders.map((userOrder)=> {
-                return <UserOrderCard key={userOrder.user_id} userOrder={userOrder}/>
+                return <UserOrderCard key={userOrder.id} userOrder={userOrder}/>
             })
             }
         </div>

@@ -7,7 +7,6 @@ class ProductSerializer < ActiveModel::Serializer
       order_quantity = user.user_products.filter {|order| order.product_id == object.id}
       total_quantity = order_quantity.sum(&:quantity)
         {
-          user_id: user.id,
           user_name: user.name,
           user_fund: user.fund,
           total_quantity: total_quantity
