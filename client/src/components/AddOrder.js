@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ProductContext } from "../context/ProductContext";
-import { OrderContext } from "../context/OrderContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddOrder(){
-    const {user, updateUser} = useContext(UserContext)
+    const {user, updateUser, setUser} = useContext(UserContext)
     const {products} = useContext(ProductContext)
-    const {orders, setOrders} = useContext(OrderContext)
+    const orders = user.user_with_orders
     const {id} = useParams()
     const navs = useNavigate()
     const numFund = parseFloat(user.fund)
@@ -36,6 +35,11 @@ export default function AddOrder(){
       };
       updateUser(updatedUser)
     }
+    function handleAddOrder(newOrder){
+        const updatedOrders = [...orders, newOrder]
+        const updatedUser = {...user, user_with_orders:updatedOrders}
+        setUser(updatedUser)
+    }
     function handleSubmit(e){
         e.preventDefault()
         if (totalCost > numFund)
@@ -60,7 +64,7 @@ export default function AddOrder(){
         })
             .then((r)=>r.json())
             .then((data)=>{
-                setOrders([...orders, data])
+                handleAddOrder(data)
                 updateFund()
                 navs("/my-orders")
             })

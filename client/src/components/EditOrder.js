@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ProductContext } from "../context/ProductContext";
-import { OrderContext } from "../context/OrderContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditOrder(){
     const [errors, setErrors] = useState([]);
-    const {user, updateUser} = useContext(UserContext)
+    const {user, updateUser, setUser} = useContext(UserContext)
     const {products} = useContext(ProductContext)
-    const {orders, setOrders} = useContext(OrderContext)
+    const orders = user.user_with_orders
+
     const {id} = useParams()
     const navs = useNavigate()
     const numFund = parseFloat(user.fund)
-    const current_order = orders.find((order)=> order.id === parseInt(id))
+    const current_order = orders.find((order)=> order.user_product_id === parseInt(id))
     const [orderObj, setOrderObj] = useState({
       product_id: 0, 
       quantity: 0,   
@@ -34,9 +34,11 @@ export default function EditOrder(){
     const originalCost = parseFloat(product.price*current_order.quantity).toFixed(2)
     
     function handleEdit(editOrder){
-      setOrders(orders.map(order=>(order.id === editOrder.id? editOrder: order)))
+      const updatedOrders = orders.map(order=>(order.user_product_id === editOrder.user_product_id? editOrder: order))
+      const updateUser = {...user, user_with_orders: updatedOrders}
+      setUser(updateUser)
     }
-    
+
     function handleChange(e) {
         setOrderObj({
           ...orderObj,
@@ -45,7 +47,7 @@ export default function EditOrder(){
         const newTotalCost = parseFloat(product.price * parseInt(e.target.value));
         setUpdatedCost(parseFloat(newTotalCost-originalCost))
         setTotalCost(newTotalCost);
-        console.log(orderObj.quantity)
+
     }
 
     function updateFund(){
@@ -67,7 +69,7 @@ export default function EditOrder(){
         
         const editOrder ={
             product_id: orderObj.product_id,
-            quantity: parseInt(orderObj.quantity)
+            quantity: orderObj.quantity
         }
         
         fetch(`/edit-order/${id}`,{
@@ -88,7 +90,9 @@ export default function EditOrder(){
                 navs("/my-orders")
               })
             } else {
-              r.json().then((err) => setErrors(err.errors));
+              r.json().then((err) => {
+
+                setErrors(err.errors)});
             }
             })
     }

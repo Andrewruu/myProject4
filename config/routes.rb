@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   post "/add-product", to: "products#create"
   delete "/remove-product/:id", to: "products#destroy"
-  get "/product-orders/:id", to: "products#users_orders"
   patch '/edit-product/:id', to: "products#update"
 
   post "/new-order", to: "user_products#create"

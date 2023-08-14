@@ -1,14 +1,12 @@
-import { Link } from "react-router-dom";
 
 export default function UserOrderCard({userOrder}){
-    const {name, username, fund} = userOrder
+    const {user_name, user_fund} = userOrder
 
     return(
         <div className="card">
             
-            <h2>Name: {name}</h2>
-            <h3>UserName: {username}</h3>
-            <p>Funds: ${fund}</p>
+            <h2>Name: {user_name}</h2>
+            <p>Funds: ${user_fund}</p>
 
         </div>
     )

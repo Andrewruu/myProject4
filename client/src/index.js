@@ -6,16 +6,14 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { ProductProvider } from './context/ProductContext';
-import { OrderProvider } from './context/OrderContext';
+
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
         <ProductProvider>
-          <OrderProvider>
-           <App />
-          </OrderProvider> 
+           <App /> 
         </ProductProvider>
       </UserProvider>
     </BrowserRouter>

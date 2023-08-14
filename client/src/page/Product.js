@@ -1,10 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import ProductCard from "../components/ProductCard";
 import { ProductContext } from "../context/ProductContext";
 
 function Product(){
     const {products, setProducts} = useContext(ProductContext)
-
     function handleRemoveProduct(product){
         setProducts(products.filter(p => p.id !== product.id))
     }

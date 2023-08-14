@@ -27,7 +27,7 @@ export default function OrderCard({order, handleRefund}){
 
     function removeOrder(){
 
-        fetch(`/order-refund/${order.id}`,
+        fetch(`/order-refund/${order.user_product_id}`,
         {
           method: 'DELETE',
           headers:{
@@ -53,7 +53,7 @@ export default function OrderCard({order, handleRefund}){
             />
             <p>Quantity: {quantity}</p>
             <p>Total Cost: ${updatePrice}</p>
-            <Link to={`/edit-order/${order.id}`} ><button >Edit Order</button></Link>
+            <Link to={`/edit-order/${order.user_product_id}`} ><button >Edit Order</button></Link>
             <button className={'refund'} onClick={removeOrder}>Refund</button>
         </div>
     )

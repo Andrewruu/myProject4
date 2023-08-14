@@ -8,7 +8,6 @@ import Product from './page/Product';
 import AddOrder from './components/AddOrder';
 import Orders from './page/Orders';
 import { ProductContext } from "./context/ProductContext";
-import { OrderContext } from "./context/OrderContext";
 import EditOrder from './components/EditOrder';
 import AddProduct from './components/AddProduct';
 import UserOrders from './page/UserOrders';
@@ -16,9 +15,8 @@ import EditProduct from './components/EditProduct';
 
 function App() {
   const {user} = useContext(UserContext)
-  const {setProducts} = useContext(ProductContext)
-  const {setOrders} = useContext(OrderContext)
-
+  const {products, setProducts} = useContext(ProductContext)
+  
 
   useEffect(()=>{
     fetch("/products")
@@ -26,11 +24,6 @@ function App() {
     .then(setProducts)
   },[]);
 
-  useEffect(()=>{
-    fetch("/orders")
-    .then((r)=>r.json())
-    .then(setOrders)
-  },[]);
 
   if (!user){
     return <Access/>

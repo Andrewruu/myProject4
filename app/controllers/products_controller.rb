@@ -12,20 +12,12 @@ class ProductsController < ApplicationController
 
     def update
         product = Product.find_by(id: params[:id])
-        if product.update(product_params)
+        if product.nil?
+            render json: {error: "Product Not Found"}, status: :not_found
+        elsif product.update(product_params)
           render json: product, status: :ok
         else
           render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
-        end
-    end
-
-    def users_orders
-        product = Product.find_by(id: params[:id])
-        if product.nil?
-            render json: {error: "Product Not Found"}, status: :not_found
-        else
-            users = product.users.distinct
-            render json: users, status: :ok
         end
     end
     
