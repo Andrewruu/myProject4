@@ -10,40 +10,40 @@ Product.create(
     name: "White Cup",
     price: 55.50,
     description: "Expensive brand of cups that can hold 6oz of drink.",
-    image: "https://images.pexels.com/photos/1566308/pexels-photo-1566308.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    image: "https://images.pexels.com/photos/1566308/pexels-photo-1566308.jpeg"
 )
 
 Product.create(
     name: "Black Cup",
     price: 55.50,
     description: "Expensive brand of cups that can hold 6oz of drink.",
-    image: "https://images.pexels.com/photos/129209/pexels-photo-129209.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    image: "https://images.pexels.com/photos/129209/pexels-photo-129209.jpeg"
 )
 
 Product.create(
     name: "Blue Cup",
     price: 55.50,
     description: "Expensive brand of cups that can hold 6oz of drink.",
-    image: "https://images.pexels.com/photos/460541/pexels-photo-460541.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    image: "https://images.pexels.com/photos/460541/pexels-photo-460541.jpeg"
 )
 
 Product.create(
     name: "Yellow Cup",
     price: 55.50,
     description: "Expensive brand of cups that can hold 6oz of drink.",
-    image: "https://images.pexels.com/photos/4737762/pexels-photo-4737762.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    image: "https://images.pexels.com/photos/4737762/pexels-photo-4737762.jpeg"
 )
 
 Product.create(
     name: "Green Cup",
     price: "55.50",
     description: "Expensive brand of cups that can hold 6oz of drink.",
-    image: "https://images.pexels.com/photos/111159/pexels-photo-111159.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    image: "https://images.pexels.com/photos/111159/pexels-photo-111159.jpeg"
 )
 
 Product.create(
     name: "Tea Set",
     price: 1600.50,
     description: "Expensive brand of cups that can hold 6oz of drink and kettle that holds 24oz of fluids.",
-    image: "https://images.pexels.com/photos/7364197/pexels-photo-7364197.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    image: "https://images.pexels.com/photos/7364197/pexels-photo-7364197.jpeg"
 )
