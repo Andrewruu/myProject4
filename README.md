@@ -8,6 +8,19 @@ So users will have many user_products and have many products through user_produc
 Products will have many user_products and have many users through user_products
 This project also shows authorization and authentication in action allowing users to Login and save a sesssion using cookies.
 
+
+```
+  post "/add-product", to: "products#create"
+  delete "/remove-product/:id", to: "products#destroy"
+  patch '/edit-product/:id', to: "products#update"
+
+  patch '/users/:id', to: 'users#update'
+  delete "remove-user/:id", to: 'users#destroy'
+```
+block of paths for CRUD to meet the project requirements if using postman to test you will need to modifiy the pramas
+for product it needs to me product[] and for users it needs to be users[]. Also user needs to be Authorized to use those two paths.
+So if you use postman to test the routes you will need to add update and destory to skip_before_action in the users_controller file.
+
 ## Setup
 
 fork and clone this repo 
