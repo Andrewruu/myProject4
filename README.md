@@ -45,3 +45,4 @@ $ npm start --prefix client
 ## Resources
 
 - Images are from https://www.pexels.com/
+- Bref overview of the project https://youtu.be/dPiKkZ0JRbs 
