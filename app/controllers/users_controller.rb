@@ -10,8 +10,8 @@ class UsersController < ApplicationController
     end
 
     def show
-      current_user = User.find(session[:user_id])
-      render json: current_user
+
+      render json: @current_user
 
     end
 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
         user.user_products.destroy_all
         user.destroy
         render json: {message: "User deleted"}, status: :ok
-    end
+      end
     
     end
 

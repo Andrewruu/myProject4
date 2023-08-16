@@ -60,9 +60,9 @@ export default function EditOrder(){
     
     function userOrderUpdate(){
       const newFund = numFund - updatedCost
-      const currentUser = product.product_with_users.filter((u)=> u.user_id == user.id)
+      const currentUser = product.product_with_users.find((u)=> u.user_id == user.id)
       const quantityChange = current_order.quantity - orderObj.quantity
-      const totalQuantity = parseInt(currentUser[0].total_quantity)
+      const totalQuantity = parseInt(currentUser.total_quantity)
       const updatedProducts = products.map((product) => {
         if (product.id === orderObj.product_id) {
           const updatedTotalQuantity = totalQuantity - quantityChange;
