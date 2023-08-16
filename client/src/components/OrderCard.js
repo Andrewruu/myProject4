@@ -25,8 +25,8 @@ export default function OrderCard({order, handleRefund}){
 
     function userOrderUpdate() {
       const newFund = numFund + updatePrice;
-      const currentUser = product.product_with_users.filter((u) => u.user_id == user.id);
-      const totalQuantity = parseInt(currentUser[0].total_quantity);
+      const currentUser = product.product_with_users.find((u) => u.user_id == user.id);
+      const totalQuantity = parseInt(currentUser.total_quantity);
       const updatedProducts = products.map((product) => {
         if (product.id === order.product_id) {
           const updatedTotalQuantity = totalQuantity - quantity;
