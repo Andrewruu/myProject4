@@ -10,14 +10,15 @@ This project also shows authorization and authentication in action allowing user
 
 
 ```
-  post "/add-product", to: "products#create"
-  delete "/remove-product/:id", to: "products#destroy"
-  patch '/edit-product/:id', to: "products#update"
-
-  patch '/users/:id', to: 'users#update'
-  delete "remove-user/:id", to: 'users#destroy'
+  <Route 
+      path='/add-product'
+      element={<AddProduct/>}/>
+  <Route 
+      path='/edit-product/:id'
+      element={<EditProduct/>}/>
 ```
-block of paths for CRUD to meet the project requirements if using postman to test you will need to modifiy the pramas
+block of paths for CRUD to meet the project requirements quick access on frontend as shown in the paths above.
+If using postman to test you will need to modifiy the pramas
 for product it needs to me product[] and for users it needs to be users[]. Also user needs to be Authorized to use those two paths.
 So if you use postman to test the routes you will need to add update and destory to skip_before_action in the users_controller file.
 

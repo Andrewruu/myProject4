@@ -102,7 +102,7 @@ export default function EditOrder(){
             quantity: orderObj.quantity
         }
         
-        fetch(`/edit-order/${id}`,{
+        fetch(`/user_products/${id}`,{
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

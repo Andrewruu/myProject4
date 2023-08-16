@@ -47,7 +47,7 @@ function handleEdit(editProduct){
       image: productObj.image
       
   }
-    fetch(`/edit-product/${id}`,{
+    fetch(`/products/${id}`,{
       method: "PATCH",
       headers: {
           "Content-Type": "application/json",

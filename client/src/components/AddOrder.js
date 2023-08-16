@@ -100,7 +100,7 @@ export default function AddOrder(){
             quantity: parseInt(orderObj.quantity)
         }
         
-        fetch("/new-order",{
+        fetch("/user_products",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

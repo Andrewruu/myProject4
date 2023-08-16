@@ -62,7 +62,7 @@ export default function OrderCard({order, handleRefund}){
 
     function removeOrder(){
 
-        fetch(`/order-refund/${order.user_product_id}`,
+        fetch(`/user_products/${order.user_product_id}`,
         {
           method: 'DELETE',
           headers:{

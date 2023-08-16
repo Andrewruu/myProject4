@@ -6,7 +6,7 @@ export default function ProductCard({product, handleRemove}){
     const updatePrice = parseFloat(price).toFixed(2)
 
     function handleDelete(){
-        fetch(`/remove-product/${id}`,{
+        fetch(`/products/${id}`,{
             method: 'DELETE',
             headers:{
             'Content-Type':'application/json'

@@ -49,7 +49,7 @@ function App() {
           <Route 
               path='/add-product'
               element={<AddProduct/>}/>
-              <Route 
+          <Route 
               path='/edit-product/:id'
               element={<EditProduct/>}/>
           <Route 

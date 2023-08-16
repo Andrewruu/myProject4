@@ -26,7 +26,7 @@ const AddProduct = () => {
 
   function handleSubmit(e){
     e.preventDefault();
-    fetch("/add-product", {
+    fetch("/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
